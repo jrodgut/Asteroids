@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight" >
+
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="?android:attr/listPreferredItemHeight"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/profile_pic"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/list_user"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/profile_pic"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/list_points"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/list_user"
+        android:layout_toRightOf="@id/profile_pic"
+        android:gravity="left"
+        android:textIsSelectable="true" />
+    
+    <TextView
+        android:id="@+id/list_date"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/list_user"
+        android:layout_toRightOf="@id/list_points"
+        android:gravity="right"
+        android:textIsSelectable="true" />
+    
+    
+
+</RelativeLayout>
