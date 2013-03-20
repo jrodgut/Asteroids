@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 Nueva puntuación
+    
+    a(href='/') Cancelar
+    
+    - if(Object.keys(errors).length > 0)
+        span.general-error Por favor corrija los siguientes errores
+
+    form(action='/new-punctuation', method='post')
+        label.block Usuario
+            input(type='text', name='user', value=body.user)
+            span.error #{errors.user}
+        label.block Puntos
+            input(type='text', name='points', value=body.points)
+            span.error #{errors.points}
+        input(type='submit',value='Enviar')
+  

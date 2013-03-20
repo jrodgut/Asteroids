@@ -1,0 +1,26 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+.block {
+  display: block;
+}
+.error,
+.general-error {
+  color: #f00;
+}
+.general-error {
+  border: dashed #f00 thin;
+  background-color: #ff0;
+  display: block;
+  margin: 1em;
+}
+label {
+  font-weight: bold;
+  display: block;
+  margin: 1em;
+  vertical-align: text-top;
+}

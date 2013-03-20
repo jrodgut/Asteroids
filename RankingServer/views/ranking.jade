@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 Ranking
+  
+  case count
+    when 0
+      p No hay puntuaciones registradas
+    when 1
+      p Hay una puntuación registrada
+    default
+      p Hay #{count} puntuaciones registradas
+
+  table
+
+    tr
+      th Usuario
+      th Puntuación
+      th Fecha
+
+    each punctuation in punctuations
+      tr
+        td= punctuation.user
+        td= punctuation.points
+        td= punctuation.getCreationDate().getDate() + '/' + punctuation.getCreationDate().getMonth() + '/' + punctuation.getCreationDate().getFullYear()
+
+  a(href='/new-punctuation') Nueva puntuación
