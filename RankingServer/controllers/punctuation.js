@@ -58,6 +58,7 @@ exports.list = function(req, res){
 		};
 
 	var ranking = [];
+	var numParalellCallbacks = 2;
 
 	function findCallback(err, punctuations){
 		if(err){
@@ -80,9 +81,8 @@ exports.list = function(req, res){
 			ranking.push(rank);
 		}
 
-		data['punctuations'] = ranking;
-		
-		punctuationRepository.count(countCallback);
+		data['punctuations'] = ranking;		
+		render();
 	}
 
 	function countCallback(err, count){
@@ -95,10 +95,14 @@ exports.list = function(req, res){
 	}
 
 	function render(){
-		res.render('ranking', data);
+		numParalellCallbacks --;
+		if(numParalellCallbacks == 0){
+			res.render('ranking', data);
+		}
 	}
 
 
 	punctuationRepository.findRanking(0, ranking_size, findCallback);
+	punctuationRepository.count(countCallback);
 
 };
