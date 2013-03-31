@@ -1,6 +1,5 @@
 package org.example.asteroids.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.example.asteroids.R;
@@ -12,8 +11,6 @@ import org.example.asteroids.services.RankingService;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 

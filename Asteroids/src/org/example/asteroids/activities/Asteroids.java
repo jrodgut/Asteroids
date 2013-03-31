@@ -19,6 +19,17 @@ public class Asteroids extends Activity {
 		setContentView(R.layout.main);
 
 		// Assign function for about button
+		Button gameButton = (Button) findViewById(R.id.new_game_button);
+		gameButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(Asteroids.this, Game.class));
+			}
+
+		});
+		
+		// Assign function for about button
 		Button aboutButton = (Button) findViewById(R.id.about_button);
 		aboutButton.setOnClickListener(new OnClickListener() {
 

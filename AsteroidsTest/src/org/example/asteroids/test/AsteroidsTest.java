@@ -3,6 +3,7 @@ package org.example.asteroids.test;
 import org.example.asteroids.R;
 import org.example.asteroids.activities.About;
 import org.example.asteroids.activities.Asteroids;
+import org.example.asteroids.activities.Game;
 import org.example.asteroids.activities.Preferences;
 import org.example.asteroids.activities.Ranking;
 
@@ -23,7 +24,7 @@ public class AsteroidsTest extends ActivityInstrumentationTestCase2<Asteroids> {
 
 	@SuppressWarnings("deprecation")
 	public AsteroidsTest() {
-		super("com.android.example.spinner", Asteroids.class);
+		super("org.example.asteroids.activities", Asteroids.class);
 	}
 
 	@Override
@@ -76,6 +77,14 @@ public class AsteroidsTest extends ActivityInstrumentationTestCase2<Asteroids> {
 	/*
 	 * Tests for checking the functionality of the elements
 	 */
+	
+	public void test_onclickNewGame_openGame() {
+		String buttonText = resources.getString(R.string.new_game);
+		Button gameButton = solo.getButton(buttonText, true);
+		solo.clickOnView(gameButton);
+		solo.waitForActivity(Game.class.getName());
+		solo.assertCurrentActivity("Game activity not launched", Game.class);
+	}
 
 	public void test_onclickAbout_openAboutDialog() {
 		String buttonText = resources.getString(R.string.about);
