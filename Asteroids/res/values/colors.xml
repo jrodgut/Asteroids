@@ -9,4 +9,5 @@
     <color name="yellow">#DBCD1C</color>
     <color name="dark_orange">#FF2E05</color>
     <color name="light_orange">#FF7A0F</color>
+    <color name="black">#000000</color>
 </resources>

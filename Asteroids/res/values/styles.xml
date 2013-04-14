@@ -30,7 +30,6 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:style/Theme.NoTitleBar">
-        <item name="android:background">@color/dark_blue</item>
     </style>
     
     <style name="AppDialogTheme" parent="android:style/Theme.Dialog">

@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.asteroids.R;
+import org.example.asteroids.drawables.Asteroid;
+import org.example.asteroids.drawables.Craft;
+import org.example.asteroids.drawables.Missile;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -87,23 +92,34 @@ public class PlayingField extends View implements SensorEventListener {
 
 		super(context, attrs);
 
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+		
+		//Initialize the drawable corresponding to the preferences settings
+		Drawable craftDrawable;
+		Drawable missileDrawable;
+		Drawable asteroidDrawable;
+		final String graphicKey = "graphics";
+		if (pref.getString(graphicKey, "1").equals("0")) {
+			//Vector graphics
+			craftDrawable = Craft.getVectorDrawable();
+			missileDrawable = Missile.getVectorDrawable();
+			asteroidDrawable = Asteroid.getVectorDrawable();
+			setBackgroundColor(getResources().getColor(R.color.black));
+		}else{
+			//Bitmap graphics
+			craftDrawable = context.getResources().getDrawable(R.drawable.craft);
+			missileDrawable = context.getResources().getDrawable(R.drawable.missile1);
+			asteroidDrawable = context.getResources().getDrawable(R.drawable.asteroid1);
+		}
+		
 		// Spacecraft
-		Drawable craftDrawable = context.getResources().getDrawable(
-				R.drawable.craft);
-
 		craft = new Graphic(this, craftDrawable);
 
 		// Missile
-		Drawable missileDrawable = context.getResources().getDrawable(
-				R.drawable.missile1);
-
 		missile = new Graphic(this, missileDrawable);
 
 		// Asteroids
 		asteroids = new ArrayList<Graphic>();
-
-		Drawable asteroidDrawable = context.getResources().getDrawable(
-				R.drawable.asteroid1);
 
 		for (int i = 0; i < numAsteroids; i++) {
 
