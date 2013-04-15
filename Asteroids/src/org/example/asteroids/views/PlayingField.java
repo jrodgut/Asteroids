@@ -77,13 +77,43 @@ public class PlayingField extends View implements SensorEventListener {
 
 	private boolean shoot = false;
 
+	private SensorManager sensorManager;
+	
 	private Float initialSensorValue;
 
-	private class GameThread extends Thread {
+	public class GameThread extends Thread {
+
+		private boolean pause, run;
+
+		public synchronized void pauseThread() {
+			pause = true;
+		}
+
+		public synchronized void resumeThread() {
+			pause = false;
+			notify();
+		}
+
+		public void stopThread() {
+			run = false;
+			if (pause){
+				resumeThread();
+			}
+		}
+
 		@Override
 		public void run() {
-			while (true) {
+			run = true;
+			while (run) {
 				updatePhysics();
+				synchronized (this) {
+					while (pause) {
+						try {
+							wait();
+						} catch (Exception e) {
+						}
+					}
+				}
 			}
 		}
 	}
@@ -92,26 +122,30 @@ public class PlayingField extends View implements SensorEventListener {
 
 		super(context, attrs);
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-		
-		//Initialize the drawable corresponding to the preferences settings
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(context);
+
+		// Initialize the drawable corresponding to the preferences settings
 		Drawable craftDrawable;
 		Drawable missileDrawable;
 		Drawable asteroidDrawable;
 		final String graphicKey = "graphics";
 		if (pref.getString(graphicKey, "1").equals("0")) {
-			//Vector graphics
+			// Vector graphics
 			craftDrawable = Craft.getVectorDrawable();
 			missileDrawable = Missile.getVectorDrawable();
 			asteroidDrawable = Asteroid.getVectorDrawable();
 			setBackgroundColor(getResources().getColor(R.color.black));
-		}else{
-			//Bitmap graphics
-			craftDrawable = context.getResources().getDrawable(R.drawable.craft);
-			missileDrawable = context.getResources().getDrawable(R.drawable.missile1);
-			asteroidDrawable = context.getResources().getDrawable(R.drawable.asteroid1);
+		} else {
+			// Bitmap graphics
+			craftDrawable = context.getResources()
+					.getDrawable(R.drawable.craft);
+			missileDrawable = context.getResources().getDrawable(
+					R.drawable.missile1);
+			asteroidDrawable = context.getResources().getDrawable(
+					R.drawable.asteroid1);
 		}
-		
+
 		// Spacecraft
 		craft = new Graphic(this, craftDrawable);
 
@@ -134,8 +168,13 @@ public class PlayingField extends View implements SensorEventListener {
 
 		}
 
+		
+
+	}
+	
+	public void registerSensors(Context context){
 		// Register the sensor for movement control
-		SensorManager sensorManager = (SensorManager) context
+		sensorManager = (SensorManager) context
 				.getSystemService(Context.SENSOR_SERVICE);
 		List<Sensor> listSensors = sensorManager
 				.getSensorList(Sensor.TYPE_ORIENTATION);
@@ -144,7 +183,10 @@ public class PlayingField extends View implements SensorEventListener {
 			sensorManager.registerListener(this, orientationSensor,
 					SensorManager.SENSOR_DELAY_GAME);
 		}
-
+	}
+	
+	public void unregisterSensors(SensorEventListener listener){
+		sensorManager.unregisterListener(listener);
 	}
 
 	@Override
@@ -182,8 +224,8 @@ public class PlayingField extends View implements SensorEventListener {
 		for (Graphic asteroide : asteroids) {
 			asteroide.draw(canvas);
 		}
-		
-		if(activeMissile){
+
+		if (activeMissile) {
 			missile.draw(canvas);
 		}
 	}
@@ -296,22 +338,29 @@ public class PlayingField extends View implements SensorEventListener {
 		final int SENSOR_FACTOR = 3;
 		craftSpin = (int) (value - initialSensorValue) / SENSOR_FACTOR;
 	}
-	
+
 	private void destroyAsteroid(Graphic asteroid) {
-	       asteroids.remove(asteroid);
-	       activeMissile = false;
+		asteroids.remove(asteroid);
+		activeMissile = false;
 	}
-	 
+
 	private void activeMissile() {
-	       missile.setPosX(craft.getPosX()+ craft.getWidth()/2 - missile.getWidth()/2);
-	       missile.setPosY(craft.getPosY()+ craft.getHeight()/2 - missile.getHeight()/2);
-	       missile.setAngle(craft.getAngle());
-	       missile.setIncX(Math.cos(Math.toRadians(missile.getAngle())) *
-	                        MISSILE_SPEED_STEP);
-	       missile.setIncY(Math.sin(Math.toRadians(missile.getAngle())) *
-	    		   MISSILE_SPEED_STEP);
-	       missileTime = (int) Math.min(this.getWidth() / Math.abs( missile.
-	          getIncX()), this.getHeight() / Math.abs(missile.getIncY())) - 2;
-	       activeMissile = true;
+		missile.setPosX(craft.getPosX() + craft.getWidth() / 2
+				- missile.getWidth() / 2);
+		missile.setPosY(craft.getPosY() + craft.getHeight() / 2
+				- missile.getHeight() / 2);
+		missile.setAngle(craft.getAngle());
+		missile.setIncX(Math.cos(Math.toRadians(missile.getAngle()))
+				* MISSILE_SPEED_STEP);
+		missile.setIncY(Math.sin(Math.toRadians(missile.getAngle()))
+				* MISSILE_SPEED_STEP);
+		missileTime = (int) Math.min(
+				this.getWidth() / Math.abs(missile.getIncX()), this.getHeight()
+						/ Math.abs(missile.getIncY())) - 2;
+		activeMissile = true;
+	}
+
+	public GameThread getThread() {
+		return thread;
 	}
 }

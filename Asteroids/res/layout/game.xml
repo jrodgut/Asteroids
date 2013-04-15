@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     <org.example.asteroids.views.PlayingField
-          android:id="@+id/VistaJuego"
+          android:id="@+id/playing_field"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
           android:focusable="true"
