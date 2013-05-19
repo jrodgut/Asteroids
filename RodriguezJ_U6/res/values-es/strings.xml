@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Asteroides</string>
+    <string name="new_game">Nuevo juego</string>
+    <string name="configuration">Configuración</string>
+    <string name="about">Acerca de&#8230;</string>
+    <string name="ranking">Puntuaciones</string>
+    <string name="music">Música</string>
+    <string name="music_desc">Reproducir música</string>
+    <string name="graphics">Gráficos</string>
+    <string name="graphics_desc">Elegir gráficos</string>
+    <string name="fragments">Fragmentos</string>
+    <string name="fragments_desc">Números de fragmentos tras la división</string>
+
+    <string-array name="graphic_types">
+        <item>Vectoriales</item>
+        <item>Bitmap</item>
+        <item>3D</item>
+    </string-array>
+    <string-array name="graphic_types_val">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="about_description">Este programa es una versión del tradicional juego Asteroides</string>
+    
+    <string name="empty_ranking">Todavía no hay puntuaciones</string>
+    <string name="profile_pic">Foto de perfil</string>
+    <string name="points">Puntos</string>
+    
+</resources>

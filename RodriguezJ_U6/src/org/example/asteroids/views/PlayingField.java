@@ -8,9 +8,7 @@ import org.example.asteroids.drawables.Asteroid;
 import org.example.asteroids.drawables.Craft;
 import org.example.asteroids.drawables.Missile;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -18,7 +16,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -83,14 +80,6 @@ public class PlayingField extends View implements SensorEventListener {
 	private SensorManager sensorManager;
 	
 	private Float initialSensorValue;
-	
-	private int score = 0;
-	
-	private final int DESTROY_ASTEROID_SCORE = 1000;
-	
-	public final static String SCORE_PARAM = "score";
-	
-	private Activity activity;
 
 	public class GameThread extends Thread {
 
@@ -287,13 +276,6 @@ public class PlayingField extends View implements SensorEventListener {
 					}
 			}
 		}
-		
-		//check whether an asteroid has crashed into the craft
-		for(Graphic asteroid : asteroids){
-			if(asteroid.verifyCollision(craft)){
-				quit();
-			}
-		}
 	}
 
 	@Override
@@ -360,20 +342,6 @@ public class PlayingField extends View implements SensorEventListener {
 	private void destroyAsteroid(Graphic asteroid) {
 		asteroids.remove(asteroid);
 		activeMissile = false;
-		score += DESTROY_ASTEROID_SCORE;
-		//check whether the game has ended
-		if(asteroids.isEmpty()){
-			quit();
-		}
-	}
-	
-	public void quit(){
-		Bundle bundle = new Bundle();
-	    bundle.putInt(SCORE_PARAM, score);
-	    Intent intent = new Intent();
-	    intent.putExtras(bundle);
-	    activity.setResult(Activity.RESULT_OK, intent);
-	    activity.finish();
 	}
 
 	private void activeMissile() {
@@ -394,9 +362,5 @@ public class PlayingField extends View implements SensorEventListener {
 
 	public GameThread getThread() {
 		return thread;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
 	}
 }

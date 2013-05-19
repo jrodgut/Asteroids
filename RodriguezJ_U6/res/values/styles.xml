@@ -1,0 +1,46 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Style for the main title in the main layout -->
+    <style name="AppTitle" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/yellow</item>
+		<item name="android:typeface">monospace</item>
+		<item name="android:textStyle">bold|italic</item>
+		<item name="android:textSize">32sp</item>
+    </style>
+    
+    <!-- Style for the buttons in the main layout -->
+    <style name="buttonMain" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/yellow</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:background">@drawable/main_buttons</item>
+		<item name="android:layout_marginTop">8dp</item>
+		<item name="android:layout_marginBottom">8dp</item>
+		<item name="android:layout_marginLeft">4dp</item>
+		<item name="android:layout_marginRight">4dp</item>
+    </style>
+    
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:style/Theme.NoTitleBar">
+    </style>
+    
+    <style name="AppDialogTheme" parent="android:style/Theme.Dialog">
+        <item name="android:background">@color/dark_blue</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+</resources>

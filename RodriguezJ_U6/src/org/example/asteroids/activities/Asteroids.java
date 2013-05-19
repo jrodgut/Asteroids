@@ -1,10 +1,6 @@
 package org.example.asteroids.activities;
 
 import org.example.asteroids.R;
-import org.example.asteroids.model.RankingPosition;
-import org.example.asteroids.services.MemoryRankingService;
-import org.example.asteroids.services.RankingService;
-import org.example.asteroids.views.PlayingField;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,16 +20,6 @@ public class Asteroids extends Activity {
 
 	private final String POSITION = "position";
 	
-	private final int GAME_RETURN_CODE = 1234;
-	
-	private static RankingService rankingService;
-	
-	public Asteroids(){
-		if (rankingService == null) {
-			rankingService = new MemoryRankingService();
-		}
-	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,8 +31,7 @@ public class Asteroids extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				Intent intent = new Intent(Asteroids.this, Game.class);
-				startActivityForResult(intent, GAME_RETURN_CODE);
+				startActivity(new Intent(Asteroids.this, Game.class));
 			}
 
 		});
@@ -79,7 +64,7 @@ public class Asteroids extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				launchRanking();
+				startActivity(new Intent(Asteroids.this, Ranking.class));
 			}
 
 		});
@@ -132,19 +117,6 @@ public class Asteroids extends Activity {
 			mp.seekTo(pos);
 		}
 	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-	    if (requestCode == GAME_RETURN_CODE & resultCode==RESULT_OK & data!=null) {
-	       int score = data.getExtras().getInt(PlayingField.SCORE_PARAM);
-	       String name = "Me";
-	       
-	       RankingPosition rankingPosition = new RankingPosition(name, score);
-	       rankingService.saveRankingPosition(rankingPosition);
-	       launchRanking();
-	    }
-	}
 
 	private void launchAboutActivity() {
 		startActivity(new Intent(this, About.class));
@@ -152,10 +124,6 @@ public class Asteroids extends Activity {
 
 	private void launchConfigActivity() {
 		startActivity(new Intent(this, Preferences.class));
-	}
-	
-	private void launchRanking(){
-		startActivity(new Intent(Asteroids.this, Ranking.class));
 	}
 
 	@Override

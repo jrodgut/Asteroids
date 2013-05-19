@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <TextView
+        style="@style/AppTitle"
+        android:text="@string/app_name" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/new_game_button"
+                style="@style/buttonMain"
+                android:text="@string/new_game" />
+
+            <Button
+                android:id="@+id/config_button"
+                style="@style/buttonMain"
+                android:text="@string/configuration" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/about_button"
+                style="@style/buttonMain"
+                android:text="@string/about" />
+
+            <Button
+                android:id="@+id/ranking_button"
+                style="@style/buttonMain"
+                android:text="@string/ranking" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

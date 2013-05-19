@@ -15,7 +15,6 @@ public class Game extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.game);
 		playingField = (PlayingField) findViewById(R.id.playing_field);
-		playingField.setActivity(this);
 	}
 	
 	@Override
